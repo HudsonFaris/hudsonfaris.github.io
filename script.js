@@ -46,7 +46,7 @@ const textArray = [
 ];
 const typingDelay = 100;
 const erasingDelay = 50;
-const newTextDelay = 2000; // Delay @test between current and next text
+const newTextDelay = 2000; // Delay between current and next text
 let textArrayIndex = 0;
 let charIndex = 0;
 
@@ -74,4 +74,3 @@ function erase() {
 document.addEventListener("DOMContentLoaded", function () {
     if (textArray.length) setTimeout(type, newTextDelay + 250);
 });
-
