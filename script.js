@@ -15,7 +15,7 @@ navLinks.forEach(link => {
 });
 
 function smoothScroll(e) {
-    e.preventDefault();
+    //e.preventDefault();
     const targetId = e.currentTarget.getAttribute("href");
     window.scrollTo({
         top: document.querySelector(targetId).offsetTop - 70,
