@@ -6,6 +6,7 @@ body {
     background: linear-gradient(-45deg, #0d0d0d, #150000, #0d0d0d, #330000);
     background-size: 400% 400%;
     animation: gradient 20s ease infinite;
+    
 }
 
 /* Gradient Animation */
@@ -20,6 +21,8 @@ body {
         background-position: 0% 50%;
     }
 }
+
+
 
 /* Navigation Bar */
 #navbar {
@@ -66,12 +69,23 @@ body {
     color: #ff4d4d;
 }
 
+
+
 /* Mobile Menu */
 .nav-toggle {
     display: none;
     flex-direction: column;
     cursor: pointer;
 }
+
+
+/*Map NOT USING RN*/
+.map-container {
+    margin-top: 2rem;
+    border-radius: 10px;
+
+}
+
 
 .bar {
     height: 2px;
@@ -113,6 +127,28 @@ body {
 
 .social-icons a:hover {
     color: #ff4d4d;
+}
+
+/*More Hero typing text*/
+#typed-text {
+    font-size: 1.2rem;
+    color: #f0f0f0;
+}
+
+#cursor {
+    display: inline-block;
+    font-size: 1.2rem;
+    color: #ff4d4d;
+    animation: blink 0.7s infinite;
+}
+
+@keyframes blink {
+    0%, 50% {
+        opacity: 1;
+    }
+    51%, 100% {
+        opacity: 0;
+    }
 }
 
 /* Sections */
