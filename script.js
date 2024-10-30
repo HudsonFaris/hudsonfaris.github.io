@@ -132,55 +132,36 @@ function displayMessage(message, sender) {
     }
 }
 
-// Simple NLP Implementation
 function getBotResponse(userMessage) {
     // Show typing indicator
     displayMessage('', 'bot typing');
-
-    setTimeout(() => {
-        // Remove typing indicator
-        const typingMessage = document.querySelector('.message.bot.typing');
-        if (typingMessage) {
-            typingMessage.remove();
-        }
-
-        userMessage = userMessage.toLowerCase();
-        let botMessage = '';
-
-        if (userMessage.includes('hello') || userMessage.includes('hi') || userMessage.includes('hey')) {
-            botMessage = 'Hello! How can I assist you today?';
-        } else if (userMessage.includes('project') || userMessage.includes('projects')) {
-            botMessage = 'I have worked on several projects like the Clue Game, C++ API Project, and Geo Map Project. Which one would you like to know about?';
-        } else if (userMessage.includes('clue game')) {
-            botMessage = 'The Clue Game is a project where I recreated the classic board game using Java and OOP principles. Would you like to know more?';
-        } else if (userMessage.includes('skills')) {
-            botMessage = 'I am proficient in C++, Java, Python, SQL, and JavaScript. I also have experience with Git, Agile methodologies, and unit testing.';
-        } else {
-            botMessage = 'I\'m sorry, I didn\'t quite understand that. Could you please rephrase?';
-        }
-
-        // Display bot's response
+  
+    // Send user message to backend server
+    fetch('/api/chat', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({ message: userMessage })
+    })
+    .then(response => response.json())
+    .then(data => {
+      // Remove typing indicator
+      const typingMessage = document.querySelector('.message.bot.typing');
+      if (typingMessage) {
+        typingMessage.remove();
+      }
+  
+      if (data.reply) {
+        const botMessage = data.reply;
         displayMessage(botMessage, 'bot');
-    }, 1000);
-}
-
-// Voice Recognition
-const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
-const recognition = new SpeechRecognition();
-
-voiceBtn.addEventListener('click', () => {
-    recognition.start();
-});
-
-recognition.onresult = function(event) {
-    const transcript = event.results[0][0].transcript;
-    chatInput.value = transcript;
-    sendMessage();
-};
-
-// Speech Synthesis
-function speak(message) {
-    const speech = new SpeechSynthesisUtterance(message);
-    speech.lang = 'en-US';
-    window.speechSynthesis.speak(speech);
-}
+      } else {
+        displayMessage('Sorry, there was an error processing your request.', 'bot');
+      }
+    })
+    .catch(error => {
+      console.error('Error:', error);
+      displayMessage('Sorry, there was an error processing your request.', 'bot');
+    });
+  }
+  
