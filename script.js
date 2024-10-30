@@ -137,31 +137,31 @@ function getBotResponse(userMessage) {
     displayMessage('', 'bot typing');
   
     // Send user message to backend server
-    fetch('/api/chat', {
+    fetch('https://backend-nu-nine-97.vercel.app/', { // Replace with your actual Vercel URL
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
       },
       body: JSON.stringify({ message: userMessage })
     })
-    .then(response => response.json())
-    .then(data => {
-      // Remove typing indicator
-      const typingMessage = document.querySelector('.message.bot.typing');
-      if (typingMessage) {
-        typingMessage.remove();
-      }
+      .then(response => response.json())
+      .then(data => {
+        // Remove typing indicator
+        const typingMessage = document.querySelector('.message.bot.typing');
+        if (typingMessage) {
+          typingMessage.remove();
+        }
   
-      if (data.reply) {
-        const botMessage = data.reply;
-        displayMessage(botMessage, 'bot');
-      } else {
+        if (data.reply) {
+          const botMessage = data.reply;
+          displayMessage(botMessage, 'bot');
+        } else {
+          displayMessage('Sorry, there was an error processing your request.', 'bot');
+        }
+      })
+      .catch(error => {
+        console.error('Error:', error);
         displayMessage('Sorry, there was an error processing your request.', 'bot');
-      }
-    })
-    .catch(error => {
-      console.error('Error:', error);
-      displayMessage('Sorry, there was an error processing your request.', 'bot');
-    });
+      });
   }
   
