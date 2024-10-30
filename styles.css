@@ -358,6 +358,157 @@ button[type="submit"]:hover {
     background-color: #e60000;
 }
 
+/* Chatbot Styles */
+/* Chatbot Toggle Button */
+#chatbot-toggle {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    background-color: #ff4d4d;
+    color: #fff;
+    border-radius: 50%;
+    width: 60px;
+    height: 60px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    z-index: 1000;
+}
+
+#chatbot-toggle:hover {
+    background-color: #e60000;
+}
+
+/* Chatbot Window */
+#chatbot {
+    display: none; /* Hidden by default */
+    position: fixed;
+    bottom: 90px;
+    right: 20px;
+    width: 350px;
+    max-height: 500px;
+    background-color: #1a1a1a;
+    border: 1px solid #333;
+    border-radius: 10px;
+    flex-direction: column;
+    z-index: 1000;
+    overflow: hidden;
+}
+
+#chatbot-header {
+    background-color: #ff4d4d;
+    padding: 1rem;
+    color: #fff;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+#chatbot-messages {
+    flex: 1;
+    padding: 1rem;
+    overflow-y: auto;
+    background-color: #1a1a1a;
+}
+
+.message {
+    margin-bottom: 1rem;
+}
+
+.message.user {
+    text-align: right;
+}
+
+.message.bot {
+    text-align: left;
+}
+
+.message p {
+    display: inline-block;
+    padding: 0.5rem 1rem;
+    border-radius: 20px;
+    max-width: 80%;
+}
+
+.message.user p {
+    background-color: #ff4d4d;
+    color: #fff;
+}
+
+.message.bot p {
+    background-color: #333;
+    color: #fff;
+}
+
+/* Chatbot Input */
+#chatbot-input {
+    display: flex;
+    padding: 0.5rem;
+    background-color: #1a1a1a;
+}
+
+#chat-input {
+    flex: 1;
+    padding: 0.5rem;
+    background-color: #333;
+    border: none;
+    color: #fff;
+    border-radius: 20px;
+}
+
+#send-btn,
+#voice-btn {
+    background: none;
+    border: none;
+    color: #ff4d4d;
+    font-size: 1.5rem;
+    margin-left: 0.5rem;
+    cursor: pointer;
+}
+
+#voice-btn {
+    margin-left: 0;
+    margin-right: 0.5rem;
+}
+
+#chatbot-close {
+    cursor: pointer;
+    font-size: 1.5rem;
+}
+
+/* Typing Indicator */
+.message.bot.typing p {
+    background-color: transparent;
+    position: relative;
+}
+
+.message.bot.typing p::after {
+    content: '';
+    display: inline-block;
+    position: absolute;
+    width: 10px;
+    height: 10px;
+    background-color: #ff4d4d;
+    border-radius: 50%;
+    animation: typing 1s infinite;
+}
+
+@keyframes typing {
+    0% {
+        box-shadow: 10px 0 0 #ff4d4d, 20px 0 0 #ff4d4d;
+    }
+    33% {
+        box-shadow: 10px 0 0 #333, 20px 0 0 #ff4d4d;
+    }
+    66% {
+        box-shadow: 10px 0 0 #333, 20px 0 0 #333;
+    }
+    100% {
+        box-shadow: 10px 0 0 #ff4d4d, 20px 0 0 #333;
+    }
+}
+
 /* Responsive Styles */
 @media (max-width: 992px) {
     .skills-category {

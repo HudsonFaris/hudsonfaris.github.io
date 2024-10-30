@@ -44,9 +44,9 @@ const textArray = [
     "Passionate about software engineering.",
     "Ready to make a meaningful impact."
 ];
-const typingDelay = 100;
-const erasingDelay = 50;
-const newTextDelay = 2000; // Delay between current and next text
+const typingDelay = 80;
+const erasingDelay = 40;
+const newTextDelay = 1500; // Delay between current and next text
 let textArrayIndex = 0;
 let charIndex = 0;
 
@@ -74,3 +74,113 @@ function erase() {
 document.addEventListener("DOMContentLoaded", function () {
     if (textArray.length) setTimeout(type, newTextDelay + 250);
 });
+
+// Chatbot Code
+
+// Chatbot Elements
+const chatbotToggle = document.getElementById('chatbot-toggle');
+const chatbot = document.getElementById('chatbot');
+const chatbotClose = document.getElementById('chatbot-close');
+const chatbotMessages = document.getElementById('chatbot-messages');
+const chatInput = document.getElementById('chat-input');
+const sendBtn = document.getElementById('send-btn');
+const voiceBtn = document.getElementById('voice-btn');
+
+// Toggle Chatbot Window
+chatbotToggle.addEventListener('click', () => {
+    chatbot.style.display = 'flex';
+    chatbotToggle.style.display = 'none';
+});
+
+chatbotClose.addEventListener('click', () => {
+    chatbot.style.display = 'none';
+    chatbotToggle.style.display = 'flex';
+});
+
+// Send Message
+sendBtn.addEventListener('click', sendMessage);
+chatInput.addEventListener('keypress', function(e) {
+    if (e.key === 'Enter') {
+        sendMessage();
+    }
+});
+
+function sendMessage() {
+    const message = chatInput.value.trim();
+    if (message === '') return;
+
+    // Display user's message
+    displayMessage(message, 'user');
+    chatInput.value = '';
+
+    // Get bot's response
+    getBotResponse(message);
+}
+
+// Display message in chat window
+function displayMessage(message, sender) {
+    const messageDiv = document.createElement('div');
+    messageDiv.classList.add('message', sender);
+    const messageText = document.createElement('p');
+    messageText.textContent = message;
+    messageDiv.appendChild(messageText);
+    chatbotMessages.appendChild(messageDiv);
+    chatbotMessages.scrollTop = chatbotMessages.scrollHeight;
+
+    if (sender === 'bot') {
+        speak(message);
+    }
+}
+
+// Simple NLP Implementation
+function getBotResponse(userMessage) {
+    // Show typing indicator
+    displayMessage('', 'bot typing');
+
+    setTimeout(() => {
+        // Remove typing indicator
+        const typingMessage = document.querySelector('.message.bot.typing');
+        if (typingMessage) {
+            typingMessage.remove();
+        }
+
+        userMessage = userMessage.toLowerCase();
+        let botMessage = '';
+
+        if (userMessage.includes('hello') || userMessage.includes('hi') || userMessage.includes('hey')) {
+            botMessage = 'Hello! How can I assist you today?';
+        } else if (userMessage.includes('project') || userMessage.includes('projects')) {
+            botMessage = 'I have worked on several projects like the Clue Game, C++ API Project, and Geo Map Project. Which one would you like to know about?';
+        } else if (userMessage.includes('clue game')) {
+            botMessage = 'The Clue Game is a project where I recreated the classic board game using Java and OOP principles. Would you like to know more?';
+        } else if (userMessage.includes('skills')) {
+            botMessage = 'I am proficient in C++, Java, Python, SQL, and JavaScript. I also have experience with Git, Agile methodologies, and unit testing.';
+        } else {
+            botMessage = 'I\'m sorry, I didn\'t quite understand that. Could you please rephrase?';
+        }
+
+        // Display bot's response
+        displayMessage(botMessage, 'bot');
+    }, 1000);
+}
+
+// Voice Recognition
+const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+const recognition = new SpeechRecognition();
+
+voiceBtn.addEventListener('click', () => {
+    recognition.start();
+});
+
+recognition.onresult = function(event) {
+    const transcript = event.results[0][0].transcript;
+    chatInput.value = transcript;
+    sendMessage();
+};
+
+// Speech Synthesis
+function speak(message) {
+    const speech = new SpeechSynthesisUtterance(message);
+    speech.lang = 'en-US';
+    window.speechSynthesis.speak(speech);
+}
