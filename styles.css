@@ -439,6 +439,7 @@ button[type="submit"]:hover {
 .message.bot p {
     background-color: #333;
     color: #fff;
+    
 }
 
 /* Chatbot Input */

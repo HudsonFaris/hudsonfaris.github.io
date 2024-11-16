@@ -163,5 +163,7 @@ function getBotResponse(userMessage) {
         console.error('Error:', error);
         displayMessage('Sorry, there was an error processing your request.', 'bot');
       });
+
+      //check fail
   }
   
