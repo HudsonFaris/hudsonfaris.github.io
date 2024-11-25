@@ -166,5 +166,6 @@ function getBotResponse(userMessage) {
       //test check
 
       //check fail
+      //check fail 2
   }
   
