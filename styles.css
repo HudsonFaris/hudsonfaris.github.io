@@ -3,9 +3,9 @@ body {
     margin: 0;
     font-family: 'Open Sans', sans-serif;
     color: #f0f0f0;
-    background: linear-gradient(-45deg, #0d0d0d, #150000, #0d0d0d, #330000);
+    background: linear-gradient(-45deg, #431010, #240707, #13310e, #244e10);
     background-size: 400% 400%;
-    animation: gradient 20s ease infinite;
+    animation: gradient 30s ease infinite;
     
 }
 
